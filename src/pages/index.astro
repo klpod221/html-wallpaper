@@ -1,11 +1,68 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import "../styles/global.css";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Webpage wallpaper by klpod221</title>
+  </head>
+  <body
+    class="bg-gray-100 flex flex-col items-center justify-center h-screen w-screen bg-cover bg-center text-white"
+    style="background-image: url('/background.png');"
+  >
+    <main class="mb-[13rem]">
+      <div class="relative">
+        <div
+          id="timer"
+          class="text-[6rem] sm:text-[12rem] font-bold text-center font-outfit"
+        >
+        </div>
+        <div
+          id="weekday"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[2rem] sm:text-[5rem] text-[#5D4472] font-smooch"
+        >
+        </div>
+      </div>
+
+      <div
+        id="date"
+        class="text-2xl font-outfit font-normal text-center -mt-10"
+      >
+      </div>
+    </main>
+
+    <script>
+      import { DateTime } from "luxon";
+
+      const timer = document.getElementById("timer");
+      const weekday = document.getElementById("weekday");
+      const date = document.getElementById("date");
+
+      const updateTime = () => {
+        const now = DateTime.now();
+        if (timer) {
+          timer.innerText = now.toFormat("HH.mm");
+        }
+
+        if (weekday) {
+          weekday.innerText = now.toFormat("cccc");
+        }
+
+        if (date) {
+          date.innerText = now.toFormat("dd LLLL yyyy");
+        }
+      };
+
+      // update every second
+      setInterval(updateTime, 1000);
+
+      // initial call
+      updateTime();
+    </script>
+  </body>
+</html>
