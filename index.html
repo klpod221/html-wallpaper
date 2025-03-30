@@ -4,20 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpage wallpaper by klpod221</title>
+  <title>Webpage Wallpaper by klpod221</title>
 
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       height: 100%;
     }
 
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6 url('background.png') center/cover no-repeat;
+      color: white;
+      font-family: "Outfit", sans-serif;
+    }
+
+    main {
+      margin-bottom: 13rem;
+    }
+
     @font-face {
       font-family: "Outfit";
       font-weight: 400;
-      font-style: normal;
       src: url("fonts/Outfit-Regular.ttf") format("truetype");
       font-display: swap;
     }
@@ -25,7 +37,6 @@
     @font-face {
       font-family: "Outfit";
       font-weight: 700;
-      font-style: normal;
       src: url("fonts/Outfit-Bold.ttf") format("truetype");
       font-display: swap;
     }
@@ -33,51 +44,14 @@
     @font-face {
       font-family: "Smooch";
       font-weight: 400;
-      font-style: normal;
       src: url("fonts/Smooch-Regular.ttf") format("truetype");
       font-display: swap;
-    }
-
-    .font-outfit {
-      font-family: "Outfit", sans-serif;
-    }
-
-    .font-smooch {
-      font-family: "Smooch", sans-serif;
-    }
-
-    body {
-      background-color: #f3f4f6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      width: 100vw;
-      background-size: cover;
-      background-position: center;
-      color: white;
-      background-image: url('background.png');
-    }
-
-    main {
-      margin-bottom: 13rem;
-    }
-
-    .relative {
-      position: relative;
     }
 
     #timer {
       font-size: 6rem;
       font-weight: bold;
       text-align: center;
-    }
-
-    @media (min-width: 640px) {
-      #timer {
-        font-size: 12rem;
-      }
     }
 
     #weekday {
@@ -87,68 +61,61 @@
       transform: translate(-50%, -50%);
       font-size: 2rem;
       color: #5D4472;
-    }
-
-    @media (min-width: 640px) {
-      #weekday {
-        font-size: 5rem;
-      }
+      font-family: "Smooch", sans-serif;
     }
 
     #date {
       font-size: 1.25rem;
-      font-weight: normal;
       text-align: center;
-      margin-top: -2.5rem;
+      margin-top: -1rem;
+    }
+
+    .relative-container {
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      #timer {
+        font-size: 12rem;
+      }
+
+      #weekday {
+        font-size: 5rem;
+      }
     }
   </style>
 </head>
 
 <body>
   <main>
-    <div class="relative">
-      <div id="timer" class="font-outfit">
-      </div>
-      <div id="weekday" class="font-smooch">
-      </div>
+    <div class="relative-container">
+      <div id="timer"></div>
+      <div id="weekday"></div>
     </div>
-
-    <div id="date" class="font-outfit">
-    </div>
+    <div id="date"></div>
   </main>
 
   <script>
-    const timer = document.getElementById("timer");
-    const weekday = document.getElementById("weekday");
-    const date = document.getElementById("date");
-
     const updateTime = () => {
       const now = new Date();
 
-      if (timer) {
-        timer.innerText = now.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-        }).replace(":", ".");
-      }
+      document.getElementById("timer").innerText = now.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }).replace(":", ".");
 
-      if (weekday) {
-        weekday.innerText = now.toLocaleDateString("en-GB", {
-          weekday: "long",
-        });
-      }
+      document.getElementById("weekday").innerText = now.toLocaleDateString("en-GB", {
+        weekday: "long",
+      });
 
-      if (date) {
-        date.innerText = now.toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        });
-      }
+      document.getElementById("date").innerText = now.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      });
     };
 
     setInterval(updateTime, 1000);
-
     updateTime();
   </script>
 </body>
